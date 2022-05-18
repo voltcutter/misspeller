@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Misspeller</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+	<h2>Misspell something.</h2>
+	Input Text:
+	<br>
+	<textarea id="input" placeholder="Drag the bottom right corner to resize..."></textarea>
+	<br>
+	Clarity:
+	<br>
+	<input id="clarity" type="number" placeholder="How clear is the output.">
+	<br>
+	<input type="button" value="Submit" id="submit" onclick="unspell();">
+	<br>
+	Output:
+	<br>
+	<textarea id="output" placeholder="Output will appear once you submit some text..." readonly></textarea>
+<script>
+var input = document.getElementById("input");
+var clarity = document.getElementById("clarity");
+var output = document.getElementById("output");
+var submit = document.getElementById("submit");
+
+function unspell()
+{
+	var inputStr = input.value;
+	var outputStr = "";
+	var clarityV = clarity.value;
+	for (var i = 0; i < inputStr.length; i++)
+	{
+		if (inputStr.charAt(i) != " ")
+		{
+			if (i != 0)
+			{
+				if (inputStr.charAt(i - 1) == " ")
+				{
+					outputStr += inputStr.charAt(i);
+				}
+				else
+				{
+					if (Math.floor(Math.random() * clarityV) == 0)
+					{
+						var oneOrTwo = Math.floor(Math.random() * 2) + 1
+						outputStr += inputStr.charAt(i + oneOrTwo);
+					}
+					else
+					{
+						outputStr += inputStr.charAt(i);
+					}	
+				}	
+			}
+			else
+			{
+				outputStr += inputStr.charAt(0);
+			}
+		}
+		else
+		{
+			outputStr += " ";
+		}
+	}
+
+	output.value = outputStr;
+}
+
+
+
+</script>
+</body>
+
+</html>
